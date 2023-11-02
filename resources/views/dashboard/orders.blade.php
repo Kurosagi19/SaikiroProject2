@@ -120,7 +120,6 @@
                                     @method('PUT')
                                     <button class="btn btn-danger btn-lg my-1"><i class="fa-solid fa-square-xmark"></i></button>
                                 </form>
-
                             </td>
                         </tr>
 
