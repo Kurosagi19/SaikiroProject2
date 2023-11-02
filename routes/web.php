@@ -52,9 +52,10 @@ Route::prefix('/dashboard')->group(function () {
     Route::get('/fields/{field}/edit', [\App\Http\Controllers\FieldController::class, 'edit'])->name('fields.edit');
     Route::put('/fields/{field}/edit', [\App\Http\Controllers\FieldController::class, 'update'])->name('fields.update');
     Route::get('/order', [\App\Http\Controllers\OrderController::class, 'index'])->name('dashboard.orders');
-    Route::put('/order/{order}/update', [\App\Http\Controllers\OrderDetailController::class, 'update'])->name('orders.update');
     Route::get('/field_types', [\App\Http\Controllers\FieldTypeController::class, 'index'])->name('field_types.index');
     Route::get('/times', [\App\Http\Controllers\TimeController::class, 'index'])->name('times.index');
+    Route::put('/orders/{order}/accepted', [\App\Http\Controllers\OrderController::class, 'acceptOrder'])->name('orders.accepted');
+    Route::put('/orders/{order}/denied', [\App\Http\Controllers\OrderController::class, 'deniedOrder'])->name('orders.denied');
     Route::get('/admin', [\App\Http\Controllers\AdminController::class, 'index'])->name('admin.index');
     Route::get('/admin/create', [\App\Http\Controllers\AdminController::class, 'create'])->name('admin.create');
     Route::post('/admin/store', [\App\Http\Controllers\AdminController::class, 'store'])->name('admin.store');

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Order extends Model
 {
@@ -13,5 +14,4 @@ class Order extends Model
     const UPDATED_AT = null;
     protected $table = 'orders';
     protected $fillable = ['order_note', 'status', 'date'];
-
 }

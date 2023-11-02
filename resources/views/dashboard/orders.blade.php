@@ -109,8 +109,18 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="#" methods="post" type="button" class="btn btn-success btn-lg my-1" value="1"><i class="fa-solid fa-square-check"></i></a>
-                                <a href="#" methods="post" type="button" class="btn btn-danger btn-lg my-1" value="2"><i class="fa-solid fa-square-xmark"></i></a>
+                                <form method="post" action="{{ route('orders.accepted', $item -> orders) }}">
+                                    @csrf
+                                    @method('PUT')
+                                <button class="btn btn-success btn-lg my-1"><i class="fa-solid fa-square-check"></i></button>
+                                </form>
+
+                                <form method="post" action="{{ route('orders.denied', $item -> orders) }}">
+                                    @csrf
+                                    @method('PUT')
+                                    <button class="btn btn-danger btn-lg my-1"><i class="fa-solid fa-square-xmark"></i></button>
+                                </form>
+
                             </td>
                         </tr>
 

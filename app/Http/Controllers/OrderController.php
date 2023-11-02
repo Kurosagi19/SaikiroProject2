@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreOrderDetailRequest;
+use App\Models\Admin;
 use App\Models\Field;
 use App\Models\FieldType;
 use App\Models\Order;
@@ -11,6 +12,7 @@ use App\Http\Requests\UpdateOrderRequest;
 use App\Models\OrderDetail;
 use App\Models\Time;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 
@@ -79,10 +81,10 @@ class OrderController extends Controller
 
         // Đẩy order_details lên database
         $customers = Session::get('customers')['id'];
-        $orders = Order::
+        $orders = Order::max('id');
         $array2 =[];
         $array2 = Arr::add($array2, 'order_id', $orders);
-        $array2 = Arr::add($array2, 'admin_id', random_int(1, 2));
+        $array2 = Arr::add($array2, 'admin_id', random_int(1, Admin::count()));
         $array2 = Arr::add($array2, 'customer_id', $customers);
         $array2 = Arr::add($array2, 'field_id', $request -> fields);
         $array2 = Arr::add($array2, 'time_id', $request -> times);
@@ -123,16 +125,24 @@ class OrderController extends Controller
     public function update(UpdateOrderRequest $request, Order $order)
     {
         //
+    }
+
+    public function acceptOrder(Order $order)
+    {
+        // Cập nhật trạng thái đơn hàng
         $array = [];
-        $array = Arr::add($array, 'order_note', $request -> order_note);
-        $array = Arr::add($array, 'admin_id', $request -> admin_id);
-        $array = Arr::add($array, 'customer_id', $request -> customer_id);
-        $array = Arr::add($array, 'status', $request -> status);
-        $array = Arr::add($array, 'date', $request -> date);
+        $array = Arr::add($array, 'status', 1);
         $order->update($array);
-        return Redirect::route('dashboard.orders', [
-            'orders' => $order
-        ]);
+        return Redirect::route('dashboard.orders');
+    }
+
+    public function deniedOrder(Order $order)
+    {
+        // Cập nhật trạng thái đơn hàng
+        $array = [];
+        $array = Arr::add($array, 'status', 2);
+        $order->update($array);
+        return Redirect::route('dashboard.orders');
     }
 
     /**
