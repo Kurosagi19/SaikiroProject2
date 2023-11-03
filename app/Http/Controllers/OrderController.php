@@ -42,18 +42,6 @@ class OrderController extends Controller
         ]);
     }
 
-    public function history() {
-        if (Session::exists('customers')) {
-//            dd(Session::get('customers')['id']);
-            $customers = Session::get('customers')['id'];
-            $details = OrderDetail::where('order_id', '=', 1) -> get();
-        }
-//        Session::put(['customers' => $customers]);
-        return view('customers.history', [
-            'details' => $details
-        ]);
-    }
-
     /**
      * Show the form for creating a new resource.
      *

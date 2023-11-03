@@ -40,13 +40,9 @@
                             <a class="nav-link active" href="#">Lịch sử</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="#">Đăng xuất</a>
+                            <a class="nav-link text-white" href="{{ route('customers.logout') }}">Đăng xuất</a>
                         </li>
                     </ul>
-                    {{--                <div id="register" class="col-2">--}}
-                    {{--                    <a type="button" class="btn btn-outline-success" href="#">Đăng ký</a>--}}
-                    {{--                    <a type="button" class="btn btn-outline-primary" href="#">Đăng nhập</a>--}}
-                    {{--                </div>--}}
                 </div>
             </div>
         </nav>
@@ -166,23 +162,22 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($orders as $item)
+                            @foreach($details as $item)
                                 <tr>
-                                    <td>{{ $item -> order_id }}</td>
-                                    <td>{{ $item -> field_id}}</td>
-                                    <td>{{ $item -> order_details -> customer_id }}<br>
+                                    <td>{{ $item -> orders -> id }}</td>
+                                    <td>{{ $item -> fields -> name }}</td>
+                                    <td>{{ $item -> orders -> date }}<br>
                                         {{ $item -> times -> timeStart }} - {{ $item -> times -> timeEnd }}</td>
-                                    <td>{{ $item -> orders -> admins -> name }}</td>
-                                    <td>{{ $item -> orders -> customers -> name }}</td>
+                                    <td>{{ $item -> customers -> name }}</td>
+                                    <td>{{ $item -> admins -> name }}</td>
                                     <td>{{ $item -> orders -> order_note }}</td>
-                                    <td>
-                                        @if(($item -> orders -> status) == 0)
+                                    <td>@if(($item -> orders -> status) == 0)
                                             Chưa xác nhận
                                         @elseif(($item -> orders -> status) == 1)
-                                            Xác nhận
+                                            Đã xác nhận
                                         @else
                                             Từ chối
-                                       @endif
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

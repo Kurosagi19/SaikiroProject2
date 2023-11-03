@@ -39,6 +39,16 @@ class CustomerController extends Controller
         return view('customers.register');
     }
 
+    public function history() {
+        if (Session::exists('customers')) {
+            $customers = Session::get('customers')['id'];
+            $details = OrderDetail::where('customer_id', '=', $customers) -> get();
+        }
+        return view('customers.history', [
+            'details' => $details
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -133,10 +143,6 @@ class CustomerController extends Controller
         } else {
             // Quay về trang login
             return Redirect::back();
-
-            // Mở code dưới để fix lỗi
-//            dd($account);
-//            return Redirect::route('customers.index');
         }
     }
 

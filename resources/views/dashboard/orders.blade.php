@@ -66,7 +66,7 @@
             </a>
             <ul class="dropdown-menu text-small shadow">
                 <li>
-                    <a class="dropdown-item" href="#" >Đăng xuất</a>
+                    <a class="dropdown-item" href="{{ route('customers.logout') }}" >Đăng xuất</a>
                 </li>
             </ul>
         </div>
@@ -103,7 +103,7 @@
                             <td>@if(($item -> orders -> status) == 0)
                                     Chưa xác nhận
                                 @elseif(($item -> orders -> status) == 1)
-                                    Xác nhận
+                                    Đã xác nhận
                                 @else
                                     Từ chối
                                 @endif
@@ -123,6 +123,7 @@
                             </td>
                         </tr>
 
+{{--                            Nút xoá--}}
 {{--                            Modal--}}
 {{--                            <div class="modal fade" id="myModal{{ $item->id }}">--}}
 {{--                                <div class="modal-dialog">--}}
@@ -153,6 +154,7 @@
 {{--                                </div>--}}
 {{--                            </div>--}}
 {{--                        </td>--}}
+{{--                        Hết xoá--}}
                     @endforeach
                 </tbody>
             </table>

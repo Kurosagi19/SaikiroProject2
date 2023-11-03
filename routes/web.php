@@ -38,11 +38,11 @@ Route::middleware('checkLogin')->prefix('/customers')->group(function () {
     Route::get('/orders/getFields/{id}', [\App\Http\Controllers\OrderController::class, 'getFields']);
     Route::get('/orders/getTimes/', [\App\Http\Controllers\OrderController::class, 'getTimes']);
 
-    Route::get('/history', [\App\Http\Controllers\OrderController::class, 'history'])->name('customers.history');
+    Route::get('/history', [\App\Http\Controllers\CustomerController::class, 'history'])->name('customers.history');
     Route::delete('/customers/{id}', [\App\Http\Controllers\CustomerController::class, 'destroy'])->name('customers.destroy');
 });
 
-Route::prefix('/dashboard')->group(function () {
+Route::middleware('checkLoginAdmin')->prefix('/dashboard')->group(function () {
     Route::get('/', [\App\Http\Controllers\AdminController::class, 'dashboard'])->name('dashboard.index');
     Route::get('/fields',[\App\Http\Controllers\FieldController::class, 'index'])->name('fields.index');
     Route::get('/fields/create', [\App\Http\Controllers\FieldController::class, 'create'])->name('fields.create');
