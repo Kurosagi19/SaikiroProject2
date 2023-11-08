@@ -8,6 +8,8 @@ use App\Models\OrderDetail;
 use App\Http\Requests\StoreOrderDetailRequest;
 use App\Http\Requests\UpdateOrderDetailRequest;
 use App\Models\Time;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 
 class OrderDetailController extends Controller
@@ -68,7 +70,11 @@ class OrderDetailController extends Controller
      */
     public function edit(OrderDetail $orderDetail)
     {
-        //
+        $orders = Order::all();
+        return view('orders.edit', [
+            'orders' => $orders,
+            'details' => $orderDetail
+        ]);
     }
 
     /**
@@ -78,9 +84,21 @@ class OrderDetailController extends Controller
      * @param  \App\Models\OrderDetail  $orderDetail
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateOrderDetailRequest $request, OrderDetail $orderDetail)
+    public function update(UpdateOrderDetailRequest $request, OrderDetail $orderDetail, Order $orders)
     {
-        //
+        // Đẩy orders lên database
+        $array = [];
+        $array = Arr::add($array, 'order_note', $request -> order_note);
+        $array = Arr::add($array, 'date', $request -> date);
+        $orders->update($array);
+
+        // Đẩy order_details lên database
+        $array2 =[];
+        $array2 = Arr::add($array2, 'fields', $request -> field_id);
+        $array2 = Arr::add($array2, 'times', $request -> time_id);
+        $orderDetail->update($array2);
+
+        return Redirect::route('dashboard.orders');
     }
 
     /**

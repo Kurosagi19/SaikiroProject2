@@ -26,16 +26,20 @@ class OrderController extends Controller
     public function index()
     {
         $details = OrderDetail::all();
+        $orders = Order::all();
         return view('dashboard.orders', [
-            'details'=> $details
+            'details'=> $details,
+            'orders' => $orders
         ]);
     }
 
     public function order() {
+        $orders = Order::all();
         $times = Time::all();
         $types = FieldType::all();
         $fields = Field::all();
         return view('customers.orders', [
+            'orders' => $orders,
             'times' => $times,
             'types' => $types,
             'fields' => $fields
@@ -100,7 +104,7 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
-        //
+
     }
 
     /**
@@ -112,7 +116,7 @@ class OrderController extends Controller
      */
     public function update(UpdateOrderRequest $request, Order $order)
     {
-        //
+
     }
 
     public function acceptOrder(Order $order)

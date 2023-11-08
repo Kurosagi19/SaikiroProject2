@@ -133,7 +133,6 @@ class CustomerController extends Controller
         $account = $request->except('_token');
         // Xác thực đăng nhập
         if(Auth::guard('customers')->attempt($account)){
-//        dd($check);
             // Cho login
             // Lấy thông tin customers
             $customers = Auth::guard('customers')->user();

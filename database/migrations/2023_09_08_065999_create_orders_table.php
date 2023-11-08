@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('order_note')->nullable();
             $table->integer('status');
             $table->date('date');
+            $table->foreignId('admin_id')->constrained('admins');
+            $table->foreignId('customer_id')->constrained('customers');
         });
     }
 

@@ -83,7 +83,7 @@ class FieldController extends Controller
      */
 
     // Chức năng hiện thị form sửa
-    public function edit(Field $field, Request $request)
+    public function edit(Field $field)
     {
         $types = FieldType::all();
         return view('fields.edit', [

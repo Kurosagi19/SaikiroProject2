@@ -37,7 +37,6 @@ Route::middleware('checkLogin')->prefix('/customers')->group(function () {
     Route::post('/details/store', [\App\Http\Controllers\OrderController::class, 'store_details'])->name('details.store');
     Route::get('/orders/getFields/{id}', [\App\Http\Controllers\OrderController::class, 'getFields']);
     Route::get('/orders/getTimes/', [\App\Http\Controllers\OrderController::class, 'getTimes']);
-
     Route::get('/history', [\App\Http\Controllers\CustomerController::class, 'history'])->name('customers.history');
     Route::delete('/customers/{id}', [\App\Http\Controllers\CustomerController::class, 'destroy'])->name('customers.destroy');
 });
@@ -61,6 +60,8 @@ Route::middleware('checkLoginAdmin')->prefix('/dashboard')->group(function () {
     Route::post('/admin/store', [\App\Http\Controllers\AdminController::class, 'store'])->name('admin.store');
     Route::delete('/admin/{id}', [\App\Http\Controllers\AdminController::class, 'destroy'])->name('admin.destroy');
     Route::get('/logout', [\App\Http\Controllers\AdminController::class, 'logout'])->name('dashboard.logout');
+    Route::get('/orders/{order}/edit', [\App\Http\Controllers\OrderDetailController::class, 'edit'])->name('orders.edit');
+    Route::put('/orders/{order}/{detail}/edit', [\App\Http\Controllers\OrderDetailController::class, 'update'])->name('orders.update');
 });
 
 

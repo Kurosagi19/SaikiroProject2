@@ -72,61 +72,56 @@
         </div>
     </div>
     <div class="col col-11 ps-3">
-        <p><a href="{{ route('customers.index') }}" class="link-primary">Trang chủ</a> / <a href="#" class="link-secondary" aria-disabled="true">Quản lý đặt sân</a></p>
+        <p><a href="{{ route('customers.index') }}" class="link-primary">Trang chủ</a> / <a href="#" class="link-secondary" aria-disabled="true">Sửa đơn hàng</a></p>
         <div>
-            <h1 class="text-success mt-4" style="font-family: 'Segoe UI Black'; font-size: xxx-large">QUẢN LÝ ĐẶT SÂN</h1>
+            <h1 class="text-success mt-4" style="font-family: 'Segoe UI Black'; font-size: xxx-large">Sửa đơn hàng</h1>
         </div>
         <div class="border-top border-success border-4 my-4">
-            {{--            Table--}}
-            <table class="table table-success table-striped mt-4" border="1px" cellpadding="0" cellspacing="0" width="100%">
-                <thead>
-                <tr>
-                    <th scope="col">ID đơn</th>
-                    <th scope="col">Sân</th>
-                    <th scope="col">Thời gian</th>
-{{--                    <th scope="col">Khách hàng</th>--}}
-{{--                    <th scope="col">Người quản lý</th>--}}
-                    <th scope="col">Ghi chú</th>
-                    <th scope="col">Trạng thái</th>
-                </tr>
-                </thead>
-                <tbody>
-                    @foreach($details as $item)
-                        <tr>
-                            <td>{{ $item -> orders -> id }}</td>
-                            <td>{{ $item -> fields -> name }}</td>
-                            <td>{{ $item -> orders -> date }}<br>
-                                {{ $item -> times -> timeStart }} - {{ $item -> times -> timeEnd }}</td>
-{{--                            <td>{{ $item -> orders -> customers -> name }}</td>--}}
-{{--                            <td>{{ $item -> orders -> admins -> name }}</td>--}}
-                            <td>{{ $item -> orders -> order_note }}</td>
-                            <td>@if(($item -> orders -> status) == 0)
-                                    Chưa xác nhận
-                                @elseif(($item -> orders -> status) == 1)
-                                    Đã xác nhận
-                                @else
-                                    Từ chối
-                                @endif
-                            </td>
-                            <td>
-                                <form method="post" action="{{ route('orders.accepted', $item -> orders) }}">
-                                    @csrf
-                                    @method('PUT')
-                                <button class="btn btn-success btn-lg my-1"><i class="fa-solid fa-square-check"></i></button>
-                                </form>
-
-                                <form method="post" action="{{ route('orders.denied', $item -> orders) }}">
-                                    @csrf
-                                    @method('PUT')
-                                    <button class="btn btn-danger btn-lg my-1"><i class="fa-solid fa-square-xmark"></i></button>
-                                </form>
-                            </td>
-                            <td><a href="{{ route('orders.edit', $item -> orders -> id) }}" class="btn btn-success">Sửa đơn hàng</a></td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-{{--            {{ $orders->links() }}--}}
+            <form method="post" action="{{ route('orders.update', $details, $orders) }}">
+                @csrf
+                @method('PUT')
+                    <div class="col-6">
+                    <div class="form-floating mb-3">
+                        <input placeholder="Select date" class="form-control" type="date" name="date"
+                               id="date" placeholder="Ngày đặt sân" required>
+                        <label for="Date" class="form-label">Ngày đặt sân</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <select class="form-select" name="times" id="times" required>
+                            @foreach($times as $time)
+                                <option id="type{{$time -> id}}"
+                                        value="{{ $time->id }}">{{ $time->timeStart }} - {{ $time->timeEnd }}</option>
+                            @endforeach
+                        </select>
+                        <label for=" TimeEnd">Khung giờ</label>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="types" required>
+                            <option value="" selected>Chọn loại sân</option>
+                            @foreach($types as $items)
+                                <option id="type{{$items -> id}}"
+                                        value="{{ $items -> id }}">{{ $items -> type }}</option>
+                            @endforeach
+                        </select>
+                        <label for="types">Loại sân</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <select class="form-select" name="fields" id="fields" required>
+                            @foreach($fields as $field)
+                                <option value="{{ $field -> id }}" id="fields">{{ $field -> name }}</option>
+                            @endforeach
+                        </select>
+                        <label for="fields">Sân</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" type="text" name="order_note" id="order_note" required>
+                        <label for="order_note" class="form-label">Ghi chú</label>
+                    </div>
+                </div>
+                <button class="btn btn-success btn-lg mt-3">Cập nhật đơn hàng</button>
+            </form>
         </div>
     </div>
 </div>
