@@ -61,7 +61,7 @@ Route::middleware('checkLoginAdmin')->prefix('/dashboard')->group(function () {
     Route::delete('/admin/{id}', [\App\Http\Controllers\AdminController::class, 'destroy'])->name('admin.destroy');
     Route::get('/logout', [\App\Http\Controllers\AdminController::class, 'logout'])->name('dashboard.logout');
     Route::get('/orders/{order}/edit', [\App\Http\Controllers\OrderDetailController::class, 'edit'])->name('orders.edit');
-    Route::put('/orders/{order}/edit', [\App\Http\Controllers\OrderDetailController::class, 'update'])->name('orders.update');
+    Route::put('/orders/{order}x/edit', [\App\Http\Controllers\OrderDetailController::class, 'update'])->name('orders.update');
 });
 
 

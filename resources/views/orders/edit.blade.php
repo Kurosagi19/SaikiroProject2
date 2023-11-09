@@ -83,7 +83,7 @@
                     <div class="col-6">
                     <div class="form-floating mb-3">
                         <input placeholder="Select date" class="form-control" type="date" name="date"
-                               id="date" placeholder="Ngày đặt sân" required>
+                               id="date" placeholder="Ngày đặt sân" value="{{ $orders -> date }}" required>
                         <label for="Date" class="form-label">Ngày đặt sân</label>
                     </div>
                     <div class="form-floating mb-3">

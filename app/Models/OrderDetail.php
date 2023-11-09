@@ -11,18 +11,12 @@ class OrderDetail extends Model
 
     public $timestamps = false;
     protected $table = 'order_details';
-    protected $fillable = ['order_id', 'admin_id', 'customer_id', 'field_id', 'time_id'];
+    protected $fillable = ['order_id', 'field_id', 'time_id'];
 
     public function orders(){
         return $this->belongsTo(Order::class, 'order_id', 'id');
     }
-    public function admins() {
-        return $this->belongsTo(Admin::class, 'admin_id', 'id');
-    }
 
-    public function customers() {
-        return $this->belongsTo(Customer::class, 'customer_id', 'id');
-    }
     public function fields() {
         return $this->belongsTo(Field::class, 'field_id', 'id');
     }

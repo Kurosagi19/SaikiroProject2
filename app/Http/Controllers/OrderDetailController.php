@@ -74,8 +74,10 @@ class OrderDetailController extends Controller
         $times = Time::all();
         $types = FieldType::all();
         $fields = Field::all();
-        $orders = Order::all()->pluck('id');
-        $orderDetail = OrderDetail::where('order_id', '=', $orders);
+        $orders = Order::all()->first();
+        $orderDetail = OrderDetail::where('order_id', '=', $orders->id)->get();
+//        dd($orders->date);
+//        dd($orderDetail);
         return view('orders.edit', [
             'orders' => $orders,
             'details' => $orderDetail,
@@ -101,7 +103,9 @@ class OrderDetailController extends Controller
         $orders->update($array);
 
         // Đẩy order_details lên database
+
         $array2 =[];
+        $array2 = Arr::add($array2, 'order_id', $request -> order_id);
         $array2 = Arr::add($array2, 'fields', $request -> field_id);
         $array2 = Arr::add($array2, 'times', $request -> time_id);
         $orderDetail->update($array2);
