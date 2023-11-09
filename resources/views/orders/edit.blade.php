@@ -77,7 +77,7 @@
             <h1 class="text-success mt-4" style="font-family: 'Segoe UI Black'; font-size: xxx-large">Sửa đơn hàng</h1>
         </div>
         <div class="border-top border-success border-4 my-4">
-            <form method="post" action="{{ route('orders.update', $details, $orders) }}">
+            <form method="post" action="{{ route('orders.update', $orders) }}">
                 @csrf
                 @method('PUT')
                     <div class="col-6">
@@ -116,7 +116,7 @@
                         <label for="fields">Sân</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input class="form-control" type="text" name="order_note" id="order_note" required>
+                        <input class="form-control" type="text" name="order_note" id="order_note" value="" required>
                         <label for="order_note" class="form-label">Ghi chú</label>
                     </div>
                 </div>

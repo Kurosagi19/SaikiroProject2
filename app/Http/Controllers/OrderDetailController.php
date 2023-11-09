@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Field;
+use App\Models\FieldType;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Http\Requests\StoreOrderDetailRequest;
@@ -70,10 +71,17 @@ class OrderDetailController extends Controller
      */
     public function edit(OrderDetail $orderDetail)
     {
-        $orders = Order::all();
+        $times = Time::all();
+        $types = FieldType::all();
+        $fields = Field::all();
+        $orders = Order::all()->pluck('id');
+        $orderDetail = OrderDetail::where('order_id', '=', $orders);
         return view('orders.edit', [
             'orders' => $orders,
-            'details' => $orderDetail
+            'details' => $orderDetail,
+            'times' => $times,
+            'types' => $types,
+            'fields' => $fields
         ]);
     }
 
